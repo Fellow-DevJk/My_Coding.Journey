@@ -83,6 +83,7 @@ int main()
     printf("Average Waiting Time: %.2f\nAverage Turnaround Time: %.2f\n", avg_waiting, avg_turnaround);
 
     free(cpu); // freeing the dynamically allocated memory to avoid memory leaks
+    free(completion);
 
     return 0;
 }
