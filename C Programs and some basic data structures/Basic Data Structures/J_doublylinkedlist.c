@@ -5,7 +5,7 @@
 struct node{
     int data;
     struct node *next;
-    struct node *prev;   //this line was added
+    struct node *prev;   
 };
 struct node *head=NULL;
 void ins_beg(struct node *);
@@ -54,7 +54,7 @@ void ins_beg(struct node *new1){
     }
     else{
         new1->next=head;
-        head->prev=new1;  //this line was added
+        head->prev=new1;  
         head=new1;
     }
 }
@@ -83,7 +83,7 @@ void ins_end(struct node *new1){
             temp=temp->next;
         }
         temp->next=new1;
-        new1->prev=temp;  //this line was added
+        new1->prev=temp;  
     }
 }
 void del_end(){
@@ -114,12 +114,12 @@ void trav_end(){
         printf("Empty\n");
     }
     else{
-        while(t2->next!=NULL){    //this line was added
-            t2=t2->next;          //this line was added
+        while(t2->next!=NULL){    
+            t2=t2->next;          
         }
         while(t2!=NULL){
             printf("%d ",t2->data);
-            t2=t2->prev;          //this line was added
+            t2=t2->prev;          
         }
     }
 }
