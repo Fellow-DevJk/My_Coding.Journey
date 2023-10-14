@@ -6,4 +6,4 @@ I hope to increase the difficulties of the problems and also try to post easier 
 
 **[Linked List programs using C language](https://github.com/Fellow-DevJk/My_Coding.Journey/tree/main/creating%20Linked%20Lists%20using%20C)**
 
-**[CPU scheduling algorithms implementation using C programs](https://github.com/Fellow-DevJk/My_Coding.Journey/tree/main/CPU%20Scheduling%20Algorithms%20using%20C)**
+**[CPU scheduling algorithms implementation using C language](https://github.com/Fellow-DevJk/My_Coding.Journey/tree/main/CPU%20Scheduling%20Algorithms%20using%20C)**
