@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-int activity_count=0;
+//Creating a structure containing the activity number, its start time and finish time
 typedef struct
 {
     int act_no;
     int start_time;
     int finish_time;
 } Activity;
-
+// creating a bubble sort function to sort accordind to the ascending order of the finish time
 void Bubble_Sort(Activity *ptr, int n)
 {
     for (int i = 0; i < n; i++)
@@ -23,31 +23,20 @@ void Bubble_Sort(Activity *ptr, int n)
         }
     }
 }
-
+//function to select the activity and print the output on the console that which activities can be conducted
 void Activity_Select(Activity *ptr, int n)
 {
-    int A[n];
-    int index = 0,m=1,j=0;
-    A[0] = ptr[0].act_no;
-    activity_count += 1;
+    int index = 0,j=0;
     printf("The processes that can be completed are: \n");
-    //printf("%d ", ptr[0].act_no);
+    printf("%d ", ptr[0].act_no);
     for (int i = 1; i < n; i++)
-    {
+    {//Comparing the start time of the actvities from the previous earliest finish and whether they are overlappig or not
         if (ptr[i].start_time >= ptr[index].finish_time)
         {
-            //printf("%d ", ptr[i].act_no);
-            A[m] = ptr[i].act_no;
-            m++;
+            printf("%d ", ptr[i].act_no);
             index = i;
-            activity_count += 1;
         }
     }
-    while(A[j] != 0){
-        printf("Activity %d\n", A[j]);
-        j++;
-    }
-    printf("The no. of activities selected are: %d", activity_count);
 }
 
 int main()
@@ -55,15 +44,15 @@ int main()
     printf("Enter the no. of activities there are: ");
     int n;
     scanf("%d", &n);
-    Activity *arr = malloc(n * sizeof(Activity));
+    Activity *arr = malloc(n * sizeof(Activity));//an array of activities
     printf("Enter the start and the finish times of the activities respectively: ");
     for (int i = 0; i < n; i++)
     {
         arr[i].act_no = i + 1;
-        scanf("%d %d", &arr[i].start_time, &arr[i].finish_time);
+        scanf("%d %d", &arr[i].start_time, &arr[i].finish_time);//taking input from the user
     }
-    Bubble_Sort(arr, n);
+    Bubble_Sort(arr, n);//sorting the activities
     Activity_Select(arr, n);
-    free(arr);
+    free(arr);//freeing the dynamically allocated memory
     return 0;
 }
