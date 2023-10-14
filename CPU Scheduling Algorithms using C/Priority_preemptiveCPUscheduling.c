@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-// Creating a structure to contain the id arrival time and burst time
-struct Process
+// Creating a structure to contain the id arrival time, burst time and priority of the process
+typedef struct
 {
     int id;
     int arrival;
     int burst;
-};
+    int priority;
+}Process;
 // Sorting the process given by the user according to their arrival times
-void Bubble_Sort(struct Process *cpu, int inputs)
+void Bubble_Sort(Process *cpu, int inputs)
 {
     for (int i = 0; i < inputs; i++)
     {
@@ -16,7 +17,7 @@ void Bubble_Sort(struct Process *cpu, int inputs)
         {
             if (cpu[i].arrival > cpu[j].arrival)
             {
-                struct Process temp = cpu[i];
+                Process temp = cpu[i];
                 cpu[i] = cpu[j];
                 cpu[j] = temp;
             }
@@ -30,11 +31,11 @@ int main()
     int input;
     int total_time = 0;
     scanf("%d", &input);
-    struct Process *cpu = malloc(input * sizeof(struct Process)); // Creating an array of processes
-    printf("Enter your id, arrival time and burst: ");
+    Process *cpu = malloc(input * sizeof(Process)); // Creating an array of processes
+    printf("Enter your id, arrival time and burst and priority: ");
     for (int i = 0; i < input; i++)
-    {
-        scanf("%d %d %d", &cpu[i].id, &cpu[i].arrival, &cpu[i].burst); // taking the input process id, the arrival and burst time from the user
+    { // taking the input process id, the arrival, burst time and the priority of the process from the user
+        scanf("%d %d %d", &cpu[i].id, &cpu[i].arrival, &cpu[i].burst);
         total_time += cpu[i].burst;
     }
     Bubble_Sort(cpu, input);
@@ -46,24 +47,24 @@ int main()
         remaining[i] = cpu[i].burst;
     }
     int current_time = 0;
-    int empty = 0;         // No. of processes that have been completed
+    int empty = 0; // No. of processes that have been completed
     while (empty != input) // running till all processes are completed
     {
-        int min_index = -1, minimum = total_time;
+        int max_index = -1, maximum = -1;
         for (int i = 0; i < input; i++)
-        {
-            if (cpu[i].arrival <= current_time && remaining[i] > 0 && remaining[i] < minimum) // checking for arrival times then finding the shortest remaining time
+        { // checking for arrival times then finding the process with the highest priortity
+            if (cpu[i].arrival <= current_time && remaining[i] > 0 && cpu[i].priority > maximum)
             {
-                minimum = remaining[i];
-                min_index = i;
+                maximum = cpu[i].priority;
+                max_index = i;
             }
         }
-        if (min_index != -1)
+        if (max_index != -1)
         {
-            remaining[min_index] -= 1; // running the process till it gets preempted over
+            remaining[max_index] -= 1; // running the process till it gets preempted over
             current_time++;
-            completion[min_index] = current_time;
-            if (remaining[min_index] == 0)
+            completion[max_index] = current_time;
+            if (remaining[max_index] == 0)
             {
                 empty++; // incrementing the no.of processes completed
             }
@@ -73,7 +74,7 @@ int main()
             current_time++; // for when CPU is idle
         }
     }
-    printf("Process ID\tArrival Time\tBurst Time\tCompletion Time\tTurnaround Time\tWaiting Time\n");
+    printf("Process ID\tArrival Time\tBurst Time\tPriority\tCompletion Time\tTurnaround Time\tWaiting Time\n");
     float avg_turnaround = 0.0, avg_waiting = 0.0;
     for (int i = 0; i < input; i++)
     { // Calculating the turnaround and waiting times and simultaneously printing it
@@ -82,11 +83,14 @@ int main()
         avg_turnaround += turnaround[i];
         avg_waiting += waiting[i];
 
-        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", cpu[i].id, cpu[i].arrival, cpu[i].burst, completion[i], turnaround[i], waiting[i]);
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", cpu[i].id, cpu[i].arrival, cpu[i].burst, cpu[i].priority, completion[i], turnaround[i], waiting[i]);
     }
     avg_turnaround /= input;
     avg_waiting /= input;
-    printf("Average Waiting Time: %.2f\nAverage Turnaround Time: %.2f\n", avg_waiting, avg_turnaround);
+    printf("Total Time: %d\n", total_time);
+    printf("Average Time: %.2f\n", (float)total_time / input);
+    printf("Average Waiting Time: %.2f\n", avg_waiting);
+    printf("Average Turnaround Time: %.2f\n", avg_turnaround);
     // freeing the dynamically allocated memory to avoid memory leaks
     free(remaining);
     free(completion);
