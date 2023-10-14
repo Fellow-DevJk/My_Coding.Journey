@@ -34,7 +34,7 @@ int main()
     printf("Enter your id, arrival time and burst: ");
     for (int i = 0; i < input; i++)
     {
-        scanf("%d %d %d", &cpu[i].id, &cpu[i].arrival, &cpu[i].burst); // taking the input process id, the arrival and burst time from the use
+        scanf("%d %d %d", &cpu[i].id, &cpu[i].arrival, &cpu[i].burst); // taking the input process id, the arrival and burst time from the user
         total_time += cpu[i].burst;
     }
     Bubble_Sort(cpu, input);
