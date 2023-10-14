@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-// Creating a structure to contain the id arrival time and burst time
+// Creating a structure to contain the id arrival time, burst time and the priorities
 typedef struct
 {
     int id;
@@ -31,10 +31,10 @@ int main()
     int input;
     int total_time = 0;
     scanf("%d", &input);
-    Process *cpu = malloc(input * sizeof(Process));
+    Process *cpu = malloc(input * sizeof(Process)); // Creating an array of processes
     printf("Enter your id, arrival time and burst and priority: ");
     for (int i = 0; i < input; i++)
-    {
+    { // taking the input process id, the arrival,burst time and priority of the process from the user
         scanf("%d %d %d %d", &cpu[i].id, &cpu[i].arrival, &cpu[i].burst, &cpu[i].priority);
         total_time += cpu[i].burst;
     }
