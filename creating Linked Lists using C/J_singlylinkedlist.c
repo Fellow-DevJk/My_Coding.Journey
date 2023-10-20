@@ -1,7 +1,6 @@
 // Single Linked-List
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
 struct node
 {
     int data;
@@ -13,6 +12,8 @@ void del_beg();
 void traverse();
 void ins_end(struct node *);
 void del_end();
+void reverse_ll_iterate();
+void reverse_ll_recurse(struct node *);
 
 int main()
 {
@@ -44,6 +45,12 @@ int main()
             break;
         case 5:
             del_end();
+            break;
+        case 6:
+            reverse_ll_iterate();
+            break;
+        case 7:
+            reverse_ll_recurse(head);
             break;
         default:
             exit(1);
@@ -135,4 +142,32 @@ void del_end()
         free(temp);
         temp = NULL;
     }
+}
+
+void reverse_ll_iterate(){
+    struct node *current = head, *prev = NULL, *temp;
+    if(head==NULL){
+        printf("Empty");
+    }
+    else{
+        while(current!=NULL){
+            temp = current->next;
+            current->next = prev;
+            prev = current;
+            current = temp;
+        }
+        head = prev;
+    }
+}
+
+void reverse_ll_recurse(struct node *ptr)
+{
+    if(ptr->next==NULL){
+        head = ptr;
+        return;
+    }
+    reverse_ll_recurse(ptr->next);
+    struct node *temp = ptr->next;
+    temp->next = ptr;
+    ptr->next = NULL;
 }
